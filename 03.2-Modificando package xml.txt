@@ -1,0 +1,42 @@
+<!-- En general, este archivo contiene version utilizada, nombre -->
+<!-- del paquete, version del paquete, descripsion del paquete,-->
+<!-- correo de quien lo mantiene, licencia-->
+
+<?xml version="1.0"?>
+<package>
+  <name>leer_camara</name>
+  <version>0.0.0</version>
+  <description>The leer_camara package</description>
+
+  <maintainer email="hector@todo.todo">hector</maintainer>
+
+  <license>TODO</license>
+
+  <!-- Aquí es donde vamos a modificar, la primera linea despues de este -->
+  <!-- Comentario ya existe cuando se abre el documento-->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Estas lineas, hasta la que dice export, son las que nosotros agreganos -->
+  <!-- Las cosas que agregamos en el CMakeLists.txt tienen que ser declaradas-->
+  <!-- aquí también, la verdad no se bien como funcione, pero poniendolo así -->
+  <!-- funciona -->
+  <build_depend>roscpp</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>OpenCV</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>cmake_modules</build_depend>
+  
+  <run_depend>roscpp</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>OpenCV</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>cmake_modules</run_depend>
+
+  <export>
+
+  </export>
+</package>

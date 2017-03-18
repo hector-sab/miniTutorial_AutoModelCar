@@ -6,6 +6,7 @@
 
 # Nota: si estas usando Sublime Text puedes cambiar el tipo de archivo visualizado
 # de "Plain Text" a "Makefile". Se resaltará que son comentarios y que no.
+
 # Estas son las primeras dos líneas de cada archivo. Indica la versión minima 
 # utilizada de cmake y el nombre del paquete tal cual se creo
 cmake_minimum_required(VERSION 2.8.3)
@@ -69,3 +70,5 @@ add_executable(pubpub_node src/pub.cpp)
 target_link_libraries(leer_cam_node ${catkin_LIBRARIES})
 
 target_link_libraries(pubpub_node ${catkin_LIBRARIES})
+
+# NOTA: Para python no es necesario hacer lo de add_executable.... ni target...
