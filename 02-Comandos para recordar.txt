@@ -1,0 +1,29 @@
+-Prender la camara (x3)
+roslaunch realsense_camera realsense_sr300.launch
+
+-Prender servo y luces (solo con bateria)
+roslaunch send_steering_light servo_light_odroid.launch
+
+-Mensajes oara controlar la dirección y las luces manualmente
+rostopic pub -r 1 /manual_control/steering std_msgs/Int16  '{data: 90}'
+rostopic pub -r 1 /manual_control/lights std_msgs/String  '{data: le}'
+
+ le        Blinking yellow left
+ ri        Blinking yellow right
+ stop      Turn on the three red tail lights (braking)
+ pa        Turn on the two red back lights, and two white front lights
+ ta        Turn on the two red back lights, and two white front lights
+ re        Turn on the white lights at the back for going backwards.
+ fr        Turn on the two white headlights for driving at night
+ diL       Turnoff the lights
+
+NOTA: la dirección (steering) NUNCA debe de ir a más de 180° ni a menos de 0°.
+
+-Prender motor de velocidad (solo con batería)
+roslaunch motor_communication motor_odroid.launch
+
+-Mensaje para control manual
+rostopic pub -r 1 manual_control/speed std_msgs/Int16  '{data: -100}'
+
+NOTA: hay que mandar números negativos para que vaya hacia adelante, y mayores que cero para que vaya hacia atras. NUNCA sobrepasar 5000, 1000 es suficiente.
+
