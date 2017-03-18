@@ -133,7 +133,7 @@ Si pasamos un archivo de la PC al carrito, desde la terminal de la PC
 scp /DIRECTORIO/DEL/ARCHIVO/NOMBRE.ALGO root@10.42.0.10:/DIRECCION/EN/EL/CARRITO/
 
 si copiamos toda una carpeta
-scp -r /DIRECTORIO/DEL/ARCHIVO/NOMBRE.ALGO root@10.42.0.10:/DIRECCION/EN/EL/CARRITO/
+scp -r /DIRECTORIO/DEL/ARCHIVO/NOMBRE/DE/CARPETA/ root@10.42.0.10:/DIRECCION/EN/EL/CARRITO/
 
 
 
