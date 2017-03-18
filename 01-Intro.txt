@@ -1,0 +1,118 @@
+/********************************************/
+/***                                      ***/
+/***      AutoNOMOS Mini al carrito       ***/
+/***            Mini tutorial             ***/
+/***           Héctor Sánchez             ***/
+/***       hector.sab@hotmail.com         ***/
+/***                                      ***/
+/********************************************/
+
+
+Nota: Este archivo se vé bien usando Sublime Text (Bloc de notas no visualiza tan bien los archivos de texto)
+Nota 2: Aprender a usar tmux, MUY útil cuando se trata de tener muchas ventanas de terminal aviertas en una misma pantaña. El carrito lo trae incluido.
+Nota 3: Si usas tmux cuando estás conectado al carrito y pierdes la comunicación con el carrito, cuando vuelvas a conectarte la ventana de tmux se re-conectara automáticamente. Si solo usas la terminal normal, esto no sucedera.
+
+
+
+
+########## Wiki del carrito ###########
+
+Se puede encontrar más información en su wiki de github en el enlace:
+https://github.com/AutoModelCar/AutoModelCarWiki/wiki
+
+Sus repositorios en https://github.com/AutoModelCar/ contienen archivos para
+re-instalar el sistema operativo del odroid y para el Arduino Nano, tanto sistema operativo como controladores, programas pre-cargados que se encargan de la comunicación con los actuadores, configuraciónes y funcionalidades.
+
+Si se desea re-instalar el sistema en el odroid se debe extraer la memoria emmc y colocarla en su adaptador emmc -> micro SD, para después ser insertado a un adaptador micro SD -> USB; no use puede usar delos baratos chafitas.
+
+Para el Arduino Nano es más fácil, solo conectarlo con un cable micro USB a la compu y cargarlo con el software de Arduino.
+
+
+
+
+########## Accesando al carrito ############
+
+Para accesar a la terminal del carrito hay dos (tres) formas:
+-Wireless: usando ssh root@192.168.43.112
+
+-Wire 1: usando ssh root@192.168.1.199 cuando no está configurado para que le compartan internet por internet, en tu PC en Network Connections/wired connection asegurate que la opcion Method en IPV4 Settings esté como "Automatic (DHCP"
+
+-wire 2: usando ssh root@10.42.0.10 cuando está configurado para que le compartan internet por ehternet, en tu PC en Network Connections/wired connection edita la opcion Method en IPV4 Settings para que quede como "Shaed to other computers".
+
+Más información de como deshabilitar el conección a internet y regresar a la IP normal, así como cambiar a que red inalámbria a la que se conecta en la wiki (https://github.com/AutoModelCar/AutoModelCarWiki/wiki/Network).
+
+
+Contraseña: elfmeter.
+
+
+
+
+########### Visualizando la camara y lidar en nuestras PCs ###############
+
+Estándo conectado el carrito a la misma red Wi-Fi o ethernet que nosotros abrimos una terminal en nuestra computadora y escribimos export ROS_MASTER_URI=http://192.168.1.199:/11311/ o export ROS_MASTER_URI=http://192.168.43.112:/11311/ o export ROS_MASTER_URI=http://10.42.0.10:/11311/ o la IP que se haya configurado.
+
+Ahora rviz, que es el visualizador de ROS.
+
+En rviz seleccionamos "add", damos clic en "by topic", y luego:
+
+----- Imagenes ------
+- Si deseamos ver la camara RGB seleccionamos /app/camera/rgb/Image_raw -> Image con la opcion "raw" o "compressed", y OK. 
+- Para la de profundidad /depth/image_raw -> Image con la opción "raw" o "compressedDepth", y OK. 
+- Para la infraroja /ir/image_raw -> Image con la opción "raw" o "compressed", y OK.
+
+Veremos que una ventana nueva es agregada a la interfaz gráfica, y si todo funciona correctamente con la camara, podremos visualizar la imágen
+
+NOTA: En el carrito Parmida (el que se tiene en CICATA) por alguna extraña razón no funciona la camara bien. Hay que ejecutar en la terminal del carrito dos o tres veces el siguiente comando roslaunch realsesnse(press TAB y se autocompleta) real(press TAB y se autocompleta)_sr300.launch
+
+------ Nuve de Puntos -------
+- Si deseamos visualizar la nuve de puntos generada por la imagen de profundidad seleccionamos /depth/points -> PointCloud2 , y OK. Ahora en el panel "Displays" en la interfaz grafica del rviz cambiamos la opción "Fixed Frame" del menú desplegable "Global Options" para que diga "SR300_depth_optical_frame". Te darás cuenta que que en la parte negra con grid de la GUI de rviz se empiezan a ver la nuve de puntos.
+
+Nota: si quieres ver la nuve de puntos conforme al eje de referencia de rviz, hay que hacer otro programa para que translade y rote la nuve de puntos originales. ¡No he encontrado otra forma!
+
+------- Lidar ---------
+- Si deseamos visualizar el lidar en el grid de la GUI de rviz seleccionamos /scan -> LaserScan , y OK. En la opción "Fixed Frame" del menú desplegable "Global Options" la cambiamos a "laser".
+
+
+
+
+########## Grabando los sensores en ROS ##############
+
+----- Pequeña info sobre ROS ------
+Como ya abrás leido, ROS tiene 4 componentes básicos: nodos, tópicos, publicadores y subscriptores.
+
+- Nodos: Son los programas que ejecutamos dentro del framework ROS, en C++ o Python.
+- Tópicos: Es el lugar dónde toda la información que los nodos (programas) decean compartir con otros nodos para el uso que les convenga y que hemos planeado.
+- Publicadores: Son parte de los nodos, una declaración en tu código. Permiten mandar mensajes fuera del nodo; hacia un tópico "x" para ser compartido con otros nodos.
+- Subscriptores: Son parte de los nodos, una declaración en tu código. Permiten leer los tópicos y manipular la información que llega al tópico que se subscribio.
+
+Piensa en ellos de la siguiente manera si gustas: los tópicos son como una papelería fuera de la universidad, los nodos son los profesores que dan clase y les gusta ver arder el mundo, está el alumno al que el profesor le encargó dejar el juego notas de clase en la papelería, y están los demás alumnos que van a la papelería a buscar una copia de juego de notas a la papelería. Los nodos se encargaran de hacer toda la lógica que querámos, pero habrá información que querremos compartir con otros programas. Los publicadores se encargarán de publicar esa información que deseamos compartir en un lugar donde cualquier nodo podrá accesar a ella, los tópicos. Cada vez que información nueva sea publicada en un tópico, el subscriptor que se encuentre al pendiente de ese tópico colectará esa información y ejecutará las instrucciones que le indiquemos.
+
+------ Como grabar -----
+Ahora bien, para poder grabar la imágen de la camara, o la velocidad con la que los motores van cambiado, o la nuve de puntos, o el lidar, o lo que sea, ejecutamos en una terminal del carrito - en la carpeta que deseamos que se guarde la grabación -  el siguiente comando: 
+
+Para grabar TODOS los nodos que se ejecutan en ROS y que se guarde el archivo como FECHA_HORA.bag:
+rosbag record -a
+
+Para grabar TODOS los nodos que se ejecutan en ROS y que se guarde el archivo como NOMBRE_FECHA_HORA.bag:
+rosbag record -a -o NOMBRE
+
+Para grabar TODOS los nodos que se ejecutan en ROS y que se guarde el archivo como NOMBRE.bag:
+rosbag record -a -O NOMBRE.bag
+
+Para grabar un tópico o varios, i.e. la camara rgb, y la camara rgb y la nuve de puntos:
+rosbag record /app/camera/rgb/image_raw 
+rosbag record /app/camera/rgb/image_raw /depth/points -O camPoints.bag
+
+
+NOTA: Los tópicos también pueden ser grabados directamente grabados en tu computadora si en tu terminal haces export ROS_MASTER_URI=http://IP:11311/ y todo lo que acabo de eexplicar arriba. SIN EMBARGO, ten en cuenta que la grabación será peor dependiendo de la velocidad de transmisión de la información entre el carrito y tu computadora. 
+
+
+
+
+########## Copiando archivos del carrito a tu computadora ##########
+
+Archivo del carrito a tu computadora:
+-Abre una ventana de la terminal de tu computadora y escribe
+
+########### Reproduciendo las grabaciones de ROS ###########
+
