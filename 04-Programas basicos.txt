@@ -1,0 +1,9 @@
+
+En los siguientes archivos encontraras como hacer los programas básicos de ros y como manipular los mensajes de los diferentes sensores.
+
+Para ejecutarlos primero tienes que correr roscore, y en una pestaña diferente de la terminal dar source devel/setup.bash a tu workspace, y ejecutar el comando
+
+rosrun NOMBRE_DEL_PAQUETE NOMBRE_DEL_EJECUTABLE
+
+
+01 - programa_04-1_publisher.cpp : Como publicar cadenas de texto y números

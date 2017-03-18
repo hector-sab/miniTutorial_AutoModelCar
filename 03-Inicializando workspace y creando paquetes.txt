@@ -67,4 +67,4 @@ catkin build NOMBRE_DEL_PAQUETE
 
 
 
-NOTA: Una vez que hayas compilado, ve de nuevo a la carpeta de tu workspace desde la terminal y ejecuta source devel/setub.bash . Este comando permitirá que ros vea los paquetes que acabamos de compilar, y los pueda usar. Se debe de hacer para cada pestaña en la que deseemos correr los nodos.
+NOTA: Una vez que hayas compilado, ve de nuevo a la carpeta de tu workspace desde la terminal y ejecuta source devel/setup.bash . Este comando permitirá que ros vea los paquetes que acabamos de compilar, y los pueda usar. Se debe de hacer para cada pestaña en la que deseemos correr los nodos.
