@@ -33,6 +33,11 @@ o si ya conoces que dependencias utilizaras
 
 catkin create pkg NOMBRE_DEL_PAQUETE --catkin-depens roscpp rospy etc
 
+Te darás cuenta que se crean 2 archivos cuando creas un paquete: CMakeLists.txt y package.xml
+
+No tengo bien claro para que sirve package.xml, seguramente lo explican mejor en los tutoriales de ros o el los libros, pero CMakeLists.txt permite encontrar todas las dependencias necesarias para que nuestro programa funcione; llamese OpenCV, Eigen, PCL, MoveIt, etc.
+
+Ver archivos 03.1 y 03.2 para una breve descripción de como modificarlos para que funcionen nuestros programas.
 
 NOTA: Por convención, no debes usar mayusculas en los nombres de los paquetes.
 

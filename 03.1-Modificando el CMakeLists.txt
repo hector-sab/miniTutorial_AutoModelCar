@@ -1,0 +1,71 @@
+#
+# Cuando creas un paquete nuevo, el archivo CMakeList que se crea está lleno de 
+# comentarios, yo simplemente borro todo excepto las primeras 2 lineas, y despues 
+# lo lleno con los datos que necesito
+#
+
+# Nota: si estas usando Sublime Text puedes cambiar el tipo de archivo visualizado
+# de "Plain Text" a "Makefile". Se resaltará que son comentarios y que no.
+# Estas son las primeras dos líneas de cada archivo. Indica la versión minima 
+# utilizada de cmake y el nombre del paquete tal cual se creo
+cmake_minimum_required(VERSION 2.8.3)
+project(test1)
+
+# Despues de esto, por lo general borro todo y lo lleno con lo siguiente:
+
+# Indicamos los paquetes que vamos a necesitar
+find_package(catkin REQUIRED COMPONENTS
+  roscpp # Necesario para programas en C++
+  rospy # Necesario para programas en Python
+  sensor_msgs # Necesario para poder leer y enviar mensages con info de sensores
+        # en ROS
+  std_msgs # Necesario para poder leer y enviar mensages en ROS
+  cv_bridge # Permite convertir el mensaje de ros de la camara a un formato 
+            # utilizado por OpenCV y viceversa. En C++ los convierte a cv::Mat, 
+            # en Python a un numpy. 
+  image_transport # Transporta el mensaje de la iimagen (?). Necesario para usar 
+                  # la camara
+  cmake_modules # No sé
+)
+
+# Si llegamos a utilizar la librería Eigen hay que agregar 
+find_package(Eigen REQUIRED)
+
+#Ahora, agregamos lo siguiente... Notese que se busca OpenCV y Eigen
+catkin_package(
+  LIBRARIES ${PROJECT_NAME}
+  CATKIN_DEPENDS roscpp cv_bridge image_transport
+  DEPENDS eigen OpenCV
+)
+
+#Incluimos sus directorios....
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
+  ${Eigen_INCLUDE_DIRS}
+)
+
+# Por ultimo indicamos que archivos se van a compilar.
+# Por ejemplo, la carpeta del paquete test1 tiene la siguiente forma
+
+# .
+# |- src/
+# |   |- read_camera.cpp
+# |   |- pub.cpp
+# |
+# |- CMakeLists.txt
+# |- packages.xml
+
+# Indicamos que quiero agregar el ejecutable del archivo read_camera.cpp
+# y en ros lo voy a nombrar como leer_cam_node
+add_executable(leer_cam_node src/read_camera.cpp)
+
+# Si quiero agregar el otro ejecutable agrego otra linea tando de add... 
+# como de target....
+add_executable(pubpub_node src/pub.cpp)
+
+# Agrego las librerías declaradas (?). No estoy seguro, pero se que es necesario
+target_link_libraries(leer_cam_node ${catkin_LIBRARIES})
+
+target_link_libraries(pubpub_node ${catkin_LIBRARIES})
