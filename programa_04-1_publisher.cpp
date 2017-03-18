@@ -18,6 +18,12 @@ Eh aquí donde está lo padre de tmux, una sola ventana, multiples terminales.
 Si tienes varios ejecutables dentro de un paquete, y necesitas que se ejecuten al
 mismo tiempo, busca sobre los archivos launch. El libro Mastering ROS habla de ellos
 
+Recuerda que este archivo debe encontrarse en la carpeta 
+
+WORKSPACE/src/PAQUETE/src/
+
+y debe estar agregado en el CMakeLists.txt
+
 */
 
 //Función principal
