@@ -7,3 +7,5 @@ rosrun NOMBRE_DEL_PAQUETE NOMBRE_DEL_EJECUTABLE
 
 
 01 - programa_04-1_publisher.cpp : Como publicar cadenas de texto y números
+02 - programa_04-2_subscriber.cpp : Como subscribirse a topicos
+03 - programa_04-3_leer_camara.cpp : Como subscribirse a la camara, modificarla con OpenCV, y publicar el resultado en los tópicos

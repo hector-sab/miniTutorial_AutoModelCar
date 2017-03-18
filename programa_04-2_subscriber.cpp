@@ -58,7 +58,7 @@ public:
     // Obtiene el valor del mensaje resivido y lo almacena en una nueva variable
     std::string palabra_resivida = msg->data.c_str();
 
-    //Muestra en consola la suma
+    //Muestra en consola la palabra
     std::cout << "Palabra resivida: " << palabra_resivida << std::endl;
   }
 };
