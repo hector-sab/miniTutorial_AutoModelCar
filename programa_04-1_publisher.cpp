@@ -30,7 +30,7 @@ y debe estar agregado en el CMakeLists.txt
 int main(int argc, char **argv)
 {
   //Inicializa el nodo con el nombre publisher_test
-  ros::init(argc, argv, "publisher_test");
+  ros::init(argc, argv, "publisher_node");
 
   //Crea objeto para manejar la comunicación entrante y saliente, de y hacia los topicos
   ros::NodeHandle node_obj;
