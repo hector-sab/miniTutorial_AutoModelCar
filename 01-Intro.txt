@@ -70,10 +70,10 @@ Veremos que una ventana nueva es agregada a la interfaz gráfica, y si todo func
 
 NOTA: En el carrito Parmida (el que se tiene en CICATA) por alguna extraña razón no funciona la camara bien. Hay que ejecutar en la terminal del carrito dos o tres veces el siguiente comando roslaunch realsesnse(press TAB y se autocompleta) real(press TAB y se autocompleta)_sr300.launch
 
------- Nuve de Puntos -------
-- Si deseamos visualizar la nuve de puntos generada por la imagen de profundidad seleccionamos /depth/points -> PointCloud2 , y OK. Ahora en el panel "Displays" en la interfaz grafica del rviz cambiamos la opción "Fixed Frame" del menú desplegable "Global Options" para que diga "SR300_depth_optical_frame". Te darás cuenta que que en la parte negra con grid de la GUI de rviz se empiezan a ver la nuve de puntos.
+------ Nube de Puntos -------
+- Si deseamos visualizar la nube de puntos generada por la imagen de profundidad seleccionamos /depth/points -> PointCloud2 , y OK. Ahora en el panel "Displays" en la interfaz grafica del rviz cambiamos la opción "Fixed Frame" del menú desplegable "Global Options" para que diga "SR300_depth_optical_frame". Te darás cuenta que que en la parte negra con grid de la GUI de rviz se empiezan a ver la nube de puntos.
 
-Nota: si quieres ver la nuve de puntos conforme al eje de referencia de rviz, hay que hacer otro programa para que translade y rote la nuve de puntos originales. ¡No he encontrado otra forma!
+Nota: si quieres ver la nube de puntos conforme al eje de referencia de rviz, hay que hacer otro programa para que translade y rote la nube de puntos originales. ¡No he encontrado otra forma!
 
 ------- Lidar ---------
 - Si deseamos visualizar el lidar en el grid de la GUI de rviz seleccionamos /scan -> LaserScan , y OK. En la opción "Fixed Frame" del menú desplegable "Global Options" la cambiamos a "laser".
@@ -99,7 +99,7 @@ Como ya abrás leido, ROS tiene 4 componentes básicos: nodos, tópicos, publica
 Piensa en ellos de la siguiente manera si gustas: los tópicos son como una papelería fuera de la universidad, los nodos son los profesores que dan clase y les gusta ver arder el mundo, está el alumno al que el profesor le encargó dejar el juego notas de clase en la papelería, y están los demás alumnos que van a la papelería a buscar una copia de juego de notas a la papelería. Los nodos se encargaran de hacer toda la lógica que querámos, pero habrá información que querremos compartir con otros programas. Los publicadores se encargarán de publicar esa información que deseamos compartir en un lugar donde cualquier nodo podrá accesar a ella, los tópicos. Cada vez que información nueva sea publicada en un tópico, el subscriptor que se encuentre al pendiente de ese tópico colectará esa información y ejecutará las instrucciones que le indiquemos.
 
 ------ Como grabar -----
-Ahora bien, para poder grabar la imágen de la camara, o la velocidad con la que los motores van cambiado, o la nuve de puntos, o el lidar, o lo que sea, ejecutamos en una terminal del carrito - en la carpeta que deseamos que se guarde la grabación -  el siguiente comando: 
+Ahora bien, para poder grabar la imágen de la camara, o la velocidad con la que los motores van cambiado, o la nube de puntos, o el lidar, o lo que sea, ejecutamos en una terminal del carrito - en la carpeta que deseamos que se guarde la grabación -  el siguiente comando: 
 
 Para grabar TODOS los nodos que se ejecutan en ROS y que se guarde el archivo como FECHA_HORA.bag:
 rosbag record -a
@@ -110,7 +110,7 @@ rosbag record -a -o NOMBRE
 Para grabar TODOS los nodos que se ejecutan en ROS y que se guarde el archivo como NOMBRE.bag:
 rosbag record -a -O NOMBRE.bag
 
-Para grabar un tópico o varios, i.e. la camara rgb, y la camara rgb y la nuve de puntos:
+Para grabar un tópico o varios, i.e. la camara rgb, y la camara rgb y la nube de puntos:
 rosbag record /app/camera/rgb/image_raw 
 rosbag record /app/camera/rgb/image_raw /depth/points -O camPoints.bag
 
