@@ -1,0 +1,50 @@
+Como ya habras leido, en ros tenemos espacios de trabajo (Workspaces) donde vivirán los paquetes (contenedor de nodos por proyecto, o para como quieras organizar tus programas) que crees.
+
+
+##### Pasos que solo haras una vez, al crear tu workspace ######
+
+Para empezar crea una carpeta donde quieras, que será tu workspace(WS). Por ejemplo en Documentos crea una carpeta llamada ROS, e ingresa a ella desde tu terminal.
+
+NOTA: A partir de aquí debes tener instalado Catkin Tools
+
+Una vez detro de la carpeta que quieres que sea tu workspace utiliza el siguiente comando para inicializarla:
+
+catkin init
+
+
+NOTA: No querras usar ese comando en la carpeta ~/ . Te dará muchos lios en el futuro si lo haces así. No puedes crear un workspace dentro de una carpeta que ya es un workspace. Quedas advertido. Y si ya lo hiciste puedes utilziar el comando "catkin clean --deinit"
+
+
+
+Ahora crea una carpeta llamada "src" dentro de la carpeta de tu (WS). En ella se guardaran todos tus paquetes. 
+
+
+
+
+
+
+######### Pasos que solo harás una vez, al crear un paquete ###########
+
+Ingresa a esa carpeta. Para crear un paquete utiliza el siguiente comando:
+
+catkin create pkg NOMBRE_DEL_PAQUETE
+
+o si ya conoces que dependencias utilizaras
+
+catkin create pkg NOMBRE_DEL_PAQUETE --catkin-depens roscpp rospy etc
+
+
+NOTA: Por convención, no debes usar mayusculas en los nombres de los paquetes.
+
+
+
+
+
+
+Para mantener todo organizado y claro, dentro de la carpeta del paquete:
+- Si usas archivos cpp, crea una carpeta llamada "src" 
+- Si usas archivos de python, crea una carpeta llamada "scripts"
+- Si usas archivos launch, crea una carpeta llamada "launch"
+- Si usas mensajes personalizados de ros, crea una carpeta llamada "msg"
+
+
