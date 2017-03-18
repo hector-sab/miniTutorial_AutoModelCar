@@ -8,7 +8,7 @@
 /********************************************/
 
 
-Nota: Este archivo se vé bien usando Sublime Text (Bloc de notas no visualiza tan bien los archivos de texto)
+Nota: Este archivo se vé bien usando Sublime Text (Ni bloc de notas ni el visualizador de github visualizan bien los archivos de texto con lineas largas de texto)
 Nota 2: Aprender a usar tmux, MUY útil cuando se trata de tener muchas ventanas de terminal aviertas en una misma pantaña. El carrito lo trae incluido.
 Nota 3: Si usas tmux cuando estás conectado al carrito y pierdes la comunicación con el carrito, cuando vuelvas a conectarte la ventana de tmux se re-conectara automáticamente. Si solo usas la terminal normal, esto no sucedera.
 
@@ -113,6 +113,23 @@ NOTA: Los tópicos también pueden ser grabados directamente grabados en tu comp
 
 Archivo del carrito a tu computadora:
 -Abre una ventana de la terminal de tu computadora y escribe
+scp root@10.42.0.10:DIRECCION/DEL/ARCHIVO/ARCHIVO.ALGO DIRECCION/EN/MI/PC/
+
+ejemplo si tengo en el carrito una carpeta llamada libros en ~/ con un archivo mis_favoritos.txt para copiarlo a mis documentos en mi computadora uso
+scp root@10.42.0.10:~/libros/mis_favoritos.txt ~/Documentos/
+
+Si pasamos un archivo de la PC al carrito, desde la terminal de la PC
+scp /DIRECTORIO/DEL/ARCHIVO/NOMBRE.ALGO root@10.42.0.10:/DIRECCION/EN/EL/CARRITO/
+
+si copiamos toda una carpeta
+scp -r /DIRECTORIO/DEL/ARCHIVO/NOMBRE.ALGO root@10.42.0.10:/DIRECCION/EN/EL/CARRITO/
+
 
 ########### Reproduciendo las grabaciones de ROS ###########
 
+Primeramente iniciamos ros en nuestra computadora con roscore . Después, en otra pestaña, inicializamos rviz. Ahora en otra pestaña navegamos hasta la carpeta donde el archivo .bag se encuentra. Por lo general cuando abrimos una terminal nos encontramos en ~/ y para movernos de directorio usamos cd. Por ejemplo de ~/ a Documentos usamos cd ~/Documentos . Si deseamos salir de la carpeta usamos cd .. o cd ../../.. dependiendo cuantas carpetas arriba deseemos salir.
+
+Ahora que nos encontramos en el directorio donde está el archivo .bag utilizamos el comando:
+rosbag play NOMBRE.bag
+
+NOTA: Con la tecla de espacio pausamos o reanudamos la reproducción. Con la tecla S vamos reproduciendo la grabación "cuadro por cuadro" 
