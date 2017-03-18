@@ -1,1 +1,1 @@
-Mini tutorial sobre el carrito Parmida de AutoModelCar en el CICATA y ROS. 
+Mini tutorial sobre el carrito Parmida; AutoModelCar en el CICATA, y ROS. 
