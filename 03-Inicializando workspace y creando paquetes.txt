@@ -47,4 +47,19 @@ Para mantener todo organizado y claro, dentro de la carpeta del paquete:
 - Si usas archivos launch, crea una carpeta llamada "launch"
 - Si usas mensajes personalizados de ros, crea una carpeta llamada "msg"
 
+Dentor de esas carpetas se guardarán los archivos.
 
+
+
+
+######### Compilando los paquetes #########
+
+Para compilar todos los paquetes debes de usar:
+catkin build
+
+Para compilar un paquete en particular debes usar
+catkin build NOMBRE_DEL_PAQUETE
+
+
+
+NOTA: Una vez que hayas compilado, ve de nuevo a la carpeta de tu workspace desde la terminal y ejecuta source devel/setub.bash . Este comando permitirá que ros vea los paquetes que acabamos de compilar, y los pueda usar. Se debe de hacer para cada pestaña en la que deseemos correr los nodos.
