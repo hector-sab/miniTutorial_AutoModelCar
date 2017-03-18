@@ -29,6 +29,13 @@ Para el Arduino Nano es más fácil, solo conectarlo con un cable micro USB a la
 
 
 
+########## Requisitos #########
+
+-Ubuntu 14.04 como sistema operativo.
+-ROS Indigo.
+-Catkin Tools.
+
+
 
 ########## Accesando al carrito ############
 
@@ -40,7 +47,6 @@ Para accesar a la terminal del carrito hay dos (tres) formas:
 -wire 2: usando ssh root@10.42.0.10 cuando está configurado para que le compartan internet por ehternet, en tu PC en Network Connections/wired connection edita la opcion Method en IPV4 Settings para que quede como "Shaed to other computers".
 
 Más información de como deshabilitar el conección a internet y regresar a la IP normal, así como cambiar a que red inalámbria a la que se conecta en la wiki (https://github.com/AutoModelCar/AutoModelCarWiki/wiki/Network).
-
 
 Contraseña: elfmeter.
 
@@ -72,7 +78,12 @@ Nota: si quieres ver la nuve de puntos conforme al eje de referencia de rviz, ha
 ------- Lidar ---------
 - Si deseamos visualizar el lidar en el grid de la GUI de rviz seleccionamos /scan -> LaserScan , y OK. En la opción "Fixed Frame" del menú desplegable "Global Options" la cambiamos a "laser".
 
+NOTOTA: Solo se puede visualizar los sensores o por wifi o por cable. Actualmente está configurado para que se vea por cable. Para cambiar este comportamiento tenemos que editar el archivo ~/.bashrc usando:
+vim ~/.bashrc
 
+Esto nos abrirá un editor de texto en la terminal. Si deseamos editar el archivo presionamos la tecla i. Para salir sin guardar cambios presionamos ESC y despues ":q!" sin comillas. Para salir y guardar los cambios presionamos ESC y despues ":x" sin comillas.
+
+Una vez en el archivo navegamos hasta el final del documento. Notarán que hay dos comentarios que dicen algo como "#For Wireless communication" y "#For Wire communication", y seguido del comentario dos lineas de texto que dicen algo como "export ROS.....". Si deseamos visualizar los sensores a travez del wifi descomentamos aquellas dos lineas que tengan la ip 192.168.43.112 y comentamos las otras dos. En caso de que deseen hacerlo por cable comentamos las de wifi y descomentamos las que tengan la ip 10.42.0.10 (o 192.168.1.199 si no está habilitado para compartir internet, si no existen lineas con esta IP, agregarlas o modificar las de 10.42.....)
 
 
 ########## Grabando los sensores en ROS ##############
@@ -125,6 +136,9 @@ si copiamos toda una carpeta
 scp -r /DIRECTORIO/DEL/ARCHIVO/NOMBRE.ALGO root@10.42.0.10:/DIRECCION/EN/EL/CARRITO/
 
 
+
+
+
 ########### Reproduciendo las grabaciones de ROS ###########
 
 Primeramente iniciamos ros en nuestra computadora con roscore . Después, en otra pestaña, inicializamos rviz. Ahora en otra pestaña navegamos hasta la carpeta donde el archivo .bag se encuentra. Por lo general cuando abrimos una terminal nos encontramos en ~/ y para movernos de directorio usamos cd. Por ejemplo de ~/ a Documentos usamos cd ~/Documentos . Si deseamos salir de la carpeta usamos cd .. o cd ../../.. dependiendo cuantas carpetas arriba deseemos salir.
@@ -133,3 +147,33 @@ Ahora que nos encontramos en el directorio donde está el archivo .bag utilizamo
 rosbag play NOMBRE.bag
 
 NOTA: Con la tecla de espacio pausamos o reanudamos la reproducción. Con la tecla S vamos reproduciendo la grabación "cuadro por cuadro" 
+
+
+
+
+######## Comprobar la inforomación publicada en los tópios ##########
+
+Si queremos ver que se está publicando en un tópico en especifico podemos usar el siguiente comando:
+
+rostopic echo /TOPICO/A/ESCUCHAR
+
+Pro ejemplo, podemos ver que se publica en el tópico del lidar con
+
+rostopic echo /scan
+
+Veremos muchos numeritos apareciendo en la terminal.
+
+
+
+
+########## Mostrar los nodos ejecutandose ########
+
+Usamos rosnode list para mostrar los nodos que se están ejecutando.
+
+
+
+
+
+############## Detener un nodo ################
+
+Usamos rosnode kill /NODO para detener un nodo.
